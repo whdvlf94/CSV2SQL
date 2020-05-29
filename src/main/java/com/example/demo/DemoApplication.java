@@ -1,41 +1,40 @@
 package com.example.demo;
 
-import org.springframework.boot.SpringApplication;
+import com.example.demo.repository.DataRepository;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.io.*;
-import java.lang.reflect.Type;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 @SpringBootApplication
 public class DemoApplication {
 
-
-    private static String fileName = "example.csv";
-//    private static String fileName = "alg_1.csv";
+    private static String fileName = "examples.csv";
 
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException, URISyntaxException {
-//        String fileName = file.getName();
+    public static void main(String[] args) throws SQLException, ClassNotFoundException, IOException, URISyntaxException{
+
+
 
         //table name
         String tableName = fileName.substring(0, fileName.length() - 4);
 
+
+        //show csv file to JSON
+//        CSV2JSON csv2json = new CSV2JSON(fileName);
+
+
         //Creating database
-        Database db = new Database();
-//        Database db2 = new Database();
+        DataRepository db = new DataRepository();
 
         //CSV Reader
-        Scanner inputReader = new Scanner(new File(fileName));
+        Scanner inputReader = new Scanner(new File(fileName), "utf-8");
 
 
         //Getting column names from first line
-        String columns = (inputReader.nextLine()).replace(" ","_");
+        String columns = (inputReader.nextLine()).replace(" ",",");
 
 
         //Check the table if does not exist, create a table
